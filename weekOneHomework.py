@@ -4,7 +4,7 @@
 
 import sys
 import string
-from random import sample
+import random
 
 class Scramble:
     def __init__(self, keyword="confused", rows=8):
@@ -13,6 +13,13 @@ class Scramble:
     
     def createScramble(self):
         aToZ = string.ascii_letters
-        return scrambleList = [random.sample(aToZ,len(rows)) for row in rows]
+        scrambleList = [random.sample(aToZ,len(self.rows)) for row in self.rows]
+        return scrambleList
+
+new_scramble_obj = Scramble()
+scramble_list = new_scramble_obj.createScramble()
+
+print(scramble_list)
+
 
     
