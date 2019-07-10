@@ -6,20 +6,39 @@ import sys
 import string
 import random
 
+confusion = "confused"
+_global = "nonlocal"
+_local = ""
+
 class Scramble:
-    def __init__(self, keyword="confused", rows=8):
-        self.keyword = keyword
+
+    def __init__(self, keyword, rows=8):
+        global confusion
+        self.keyword = "what?"
         self.rows = [row+1 for row in range(rows)]
     
-    def createScramble(self):
-        aToZ = string.ascii_letters
+    def createScrambleList(self):
+        aToZ = string.ascii_letters + _global
         scrambleList = [random.sample(aToZ,len(self.rows)) for row in self.rows]
         return scrambleList
 
-new_scramble_obj = Scramble()
-scramble_list = new_scramble_obj.createScramble()
+    def findGlobal(self):
+        global _global
+        global _local
+        scrambleList = self.createScrambleList()
+        for idx, array in enumerate(scrambleList):
+            print(array)
+            i = 0
+            while i < len(array):
+                if array[i].upper() == _global[i].upper():
+                    _local += array[i]
+                    break
+                i += 1
+    
 
-print(scramble_list)
+new_scramble_obj = Scramble(confusion)
+new_scramble_obj.findGlobal()
 
+print(_local)
 
     
