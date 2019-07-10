@@ -11,7 +11,7 @@ class Scramble:
         self.keyword = keyword
         self.rows = [row+1 for row in range(rows)]
     
-    def createScramble(self)
+    def createScramble(self):
         aToZ = string.ascii_letters
         return scrambleList = [random.sample(aToZ,len(rows)) for row in rows]
 
