@@ -11,34 +11,61 @@ _global = "nonlocal"
 _local = ""
 
 class Scramble:
-
-    def __init__(self, keyword, rows=8):
-        global confusion
-        self.keyword = "what?"
+    """Instantiate confusion"""
+    def __init__(self, rows=12):
         self.rows = [row+1 for row in range(rows)]
     
     def createScrambleList(self):
+        """Create a nested list of scrambled ascii characters"""
         aToZ = string.ascii_letters + _global
         scrambleList = [random.sample(aToZ,len(self.rows)) for row in self.rows]
         return scrambleList
 
     def findGlobal(self):
+        """Create a scrambled nested list and iterate over it.
+        Add characters to the global _local string variable
+        as they are found.
+        """
         global _global
-        global _local
         scrambleList = self.createScrambleList()
-        for idx, array in enumerate(scrambleList):
-            print(array)
-            i = 0
-            while i < len(array):
-                if array[i].upper() == _global[i].upper():
-                    _local += array[i]
-                    break
-                i += 1
-    
+        confusion = list(_global)
+        letterIndex = 0
+        currentLetter = confusion[letterIndex]
+        def unnecessaryInnerFunction(letterList):
+            global _local
+            nonlocal confusion
+            nonlocal currentLetter
+            nonlocal letterIndex
+            for array in scrambleList:
+                print(array)
+                i = 0
+                while letterIndex < len(confusion) and i < len(scrambleList):
+                    if array[i].upper() == currentLetter.upper():
+                        _local += array[i]
+                        letterIndex += 1
+                        if letterIndex == len(confusion):
+                            break
+                        else:
+                            currentLetter = confusion[letterIndex]
+                            break
+                    i += 1
+        unnecessaryInnerFunction(scrambleList)
 
-new_scramble_obj = Scramble(confusion)
-new_scramble_obj.findGlobal()
+    def determineConfusion(self):
+        """Update the confusion string variable based on
+        whether it finds a match between _global and _local
+        """
+        global confusion
+        self.findGlobal()
+        if _global.upper() == _local.upper():
+            confusion = "slightly less confused"
+        else:
+            confusion = "still really confused"
 
-print(_local)
+
+new_scramble_obj = Scramble()
+new_scramble_obj.determineConfusion()
+
+print("Global equals "+_global+" and local equals "+_local+", so I'm "+confusion)
 
     
