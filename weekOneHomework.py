@@ -5,6 +5,9 @@
 import sys
 import string
 import random
+from colorama import init
+init()
+from colorama import Fore, Back, Style
 
 confusion = "confused"
 _global = "nonlocal"
@@ -37,12 +40,12 @@ class Scramble:
             nonlocal currentLetter
             nonlocal letterIndex
             for array in scrambleList:
-                print(array)
                 i = 0
                 while letterIndex < len(confusion) and i < len(scrambleList):
                     if array[i].upper() == currentLetter.upper():
                         _local += array[i]
                         letterIndex += 1
+                        print(array[0:i], Fore.GREEN + Style.BRIGHT + Back.CYAN + str([array[i]]) + Style.RESET_ALL, array[i+1:])
                         if letterIndex == len(confusion):
                             break
                         else:
