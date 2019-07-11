@@ -42,15 +42,21 @@ class Scramble:
             for array in scrambleList:
                 i = 0
                 while letterIndex < len(confusion) and i < len(scrambleList):
-                    if array[i].upper() == currentLetter.upper():
+                    if _global.upper() == _local.upper():
+                        break
+                    elif array[i].upper() == currentLetter.upper():
+                        if letterIndex == len(confusion)-1:
+                            _local += array[i]
+                            currentLetter = confusion[letterIndex]
+                            print(array[0:i], Fore.GREEN + Style.BRIGHT + Back.CYAN + str([array[i]]) + Style.RESET_ALL, array[i+1:])
+                            break
                         _local += array[i]
                         letterIndex += 1
+                        currentLetter = confusion[letterIndex]
                         print(array[0:i], Fore.GREEN + Style.BRIGHT + Back.CYAN + str([array[i]]) + Style.RESET_ALL, array[i+1:])
-                        if letterIndex == len(confusion):
-                            break
-                        else:
-                            currentLetter = confusion[letterIndex]
-                            break
+                        break
+                    else:
+                        currentLetter = confusion[letterIndex]
                     i += 1
         unnecessaryInnerFunction(scrambleList)
 
